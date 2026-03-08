@@ -1,0 +1,10 @@
+// Copy this file to config.js (gitignored) and fill in values after deploying.
+// config.js is loaded by index.html before app.js.
+
+window.CONFIG = {
+  ADMIN_URL_LIST:   'https://REGION-PROJECT.cloudfunctions.net/list',
+  ADMIN_URL_UPLOAD: 'https://REGION-PROJECT.cloudfunctions.net/upload',
+  ADMIN_URL_DELETE: 'https://REGION-PROJECT.cloudfunctions.net/delete',
+  SERVE_URL:        'https://REGION-PROJECT.cloudfunctions.net/serve',
+  GOOGLE_CLIENT_ID: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
+};

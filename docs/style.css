@@ -1,0 +1,311 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #1a1a1e;
+  --surface: #26262c;
+  --surface-hover: #2e2e36;
+  --border: #3a3a45;
+  --text: #e8e8ee;
+  --text-muted: #888895;
+  --accent: #6c8cff;
+  --accent-hover: #8aa3ff;
+  --danger: #e05555;
+  --danger-hover: #e87070;
+  --success: #4caf82;
+  --radius: 8px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+#auth-area {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#user-email {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+#signout-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+#signout-btn:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+/* Main content */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Upload zone */
+#upload-section {
+  margin-bottom: 2.5rem;
+}
+
+#upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  position: relative;
+}
+
+#upload-zone:hover,
+#upload-zone:focus {
+  border-color: var(--accent);
+  background: rgba(108, 140, 255, 0.05);
+  outline: none;
+}
+
+#upload-zone.drag-over {
+  border-color: var(--accent);
+  background: rgba(108, 140, 255, 0.1);
+}
+
+#upload-zone p {
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+#upload-zone p.subtext {
+  font-size: 0.85rem;
+  margin-top: 0.35rem;
+}
+
+#file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+#progress-bar-wrap {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 0.75rem;
+  overflow: hidden;
+}
+
+#progress-bar {
+  height: 100%;
+  background: var(--accent);
+  width: 0%;
+  transition: width 0.2s ease;
+}
+
+#upload-status {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  min-height: 1.25rem;
+}
+
+/* Gallery */
+#gallery-section h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+}
+
+#image-count {
+  color: var(--text-muted);
+}
+
+#image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Image cards */
+.image-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+
+.image-card:hover {
+  border-color: var(--accent);
+}
+
+.image-card .thumb-wrap {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.image-card .thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s;
+}
+
+.image-card:hover .thumb-wrap img {
+  transform: scale(1.03);
+}
+
+.image-card .card-body {
+  padding: 0.65rem 0.75rem;
+}
+
+.image-card .card-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.2rem;
+}
+
+.image-card .card-size {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.65rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  text-align: center;
+}
+
+.btn-copy {
+  background: var(--surface-hover);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-copy:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn-delete {
+  background: var(--surface-hover);
+  border-color: var(--border);
+  color: var(--danger);
+}
+
+.btn-delete:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+/* Toast */
+#toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+#toast.show {
+  display: block !important;
+  opacity: 1;
+}
+
+/* Loading state */
+.loading-msg {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 2rem 0;
+  text-align: center;
+}
