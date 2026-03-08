@@ -106,6 +106,7 @@ function buildCard(img) {
     </div>
   `;
 
+  card.querySelector('.thumb-wrap img').addEventListener('click', () => openLightbox(fullUrl, img.name));
   card.querySelector('.btn-copy').addEventListener('click', () => copyUrl(fullUrl));
   card.querySelector('.btn-delete').addEventListener('click', () => deleteImage(img.name));
 
@@ -230,3 +231,28 @@ function showToast(message) {
     setTimeout(() => toast.classList.add('hidden'), 200);
   }, 2500);
 }
+
+// ---- Lightbox -------------------------------------------------------------
+
+function openLightbox(url, name) {
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = url;
+  img.alt = name;
+  lightbox.classList.remove('hidden');
+  document.addEventListener('keydown', onLightboxKey);
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.classList.add('hidden');
+  document.getElementById('lightbox-img').src = '';
+  document.removeEventListener('keydown', onLightboxKey);
+}
+
+function onLightboxKey(e) {
+  if (e.key === 'Escape') closeLightbox();
+}
+
+document.getElementById('lightbox-backdrop').addEventListener('click', closeLightbox);
+document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
