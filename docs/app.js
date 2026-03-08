@@ -85,8 +85,8 @@ function buildCard(img) {
   card.className = 'image-card';
   card.dataset.name = img.name;
 
-  const thumbUrl = `${CONFIG.SERVE_URL}/${img.name}?width=200`;
-  const fullUrl  = `${CONFIG.SERVE_URL}/${img.name}`;
+  const thumbUrl = `${CONFIG.SERVE_URL}/${encodeURIComponent(img.name)}?width=200`;
+  const fullUrl  = `${CONFIG.SERVE_URL}/${encodeURIComponent(img.name)}`;
 
   card.innerHTML = `
     <div class="thumb-wrap">

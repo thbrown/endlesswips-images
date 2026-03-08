@@ -62,7 +62,12 @@ functions.http('upload', async (req, res) => {
             const buffer = Buffer.concat(chunks);
             const webpBuffer = await sharp(buffer).webp({ quality: 85 }).toBuffer();
 
-            const baseName = path.basename(filename, path.extname(filename));
+            const baseName = path.basename(filename, path.extname(filename))
+              .normalize('NFD')           // decompose accents/special chars
+              .replace(/[\u0300-\u036f]/g, '') // strip diacritics
+              .replace(/[^a-zA-Z0-9._-]/g, '-') // replace anything else with hyphen
+              .replace(/-+/g, '-')        // collapse multiple hyphens
+              .replace(/^-|-$/g, '');     // trim leading/trailing hyphens
             const destName = `${baseName}.webp`;
             const gcsFile = bucket.file(destName);
 
@@ -99,6 +104,7 @@ functions.http('upload', async (req, res) => {
       resolve();
     });
 
-    req.pipe(busboy);
+    // Gen 2 (Cloud Run) pre-reads the body; use req.rawBody instead of piping
+    busboy.end(req.rawBody);
   });
 });
