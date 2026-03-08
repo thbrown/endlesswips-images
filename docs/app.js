@@ -1,14 +1,22 @@
-// CONFIG is loaded from web/config.js (gitignored) via index.html.
-// See web/config.js.example to create your local copy.
+// CONFIG is loaded from docs/config.js via index.html.
+// See docs/config.js.example to create your local copy.
 const CONFIG = window.CONFIG;
 
 let idToken = null;
 
 // ---- Google Sign-In -------------------------------------------------------
 
-window.addEventListener('DOMContentLoaded', () => {
-  // Inject the client_id into the hidden div that GSI uses
-  document.getElementById('g_id_onload').dataset.client_id = CONFIG.GOOGLE_CLIENT_ID;
+// Initialize GSI once the library script has loaded
+window.addEventListener('load', () => {
+  google.accounts.id.initialize({
+    client_id: CONFIG.GOOGLE_CLIENT_ID,
+    callback: handleCredentialResponse,
+    auto_select: false,
+  });
+  google.accounts.id.renderButton(
+    document.getElementById('g_id_signin'),
+    { type: 'standard', size: 'large', theme: 'filled_black', text: 'sign_in_with' }
+  );
 });
 
 window.handleCredentialResponse = function (response) {
