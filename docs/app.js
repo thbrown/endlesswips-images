@@ -11,12 +11,13 @@ window.addEventListener('load', () => {
   google.accounts.id.initialize({
     client_id: CONFIG.GOOGLE_CLIENT_ID,
     callback: handleCredentialResponse,
-    auto_select: false,
+    auto_select: true,  // silently re-authenticates if still logged into Google
   });
   google.accounts.id.renderButton(
     document.getElementById('g_id_signin'),
     { type: 'standard', size: 'large', theme: 'filled_black', text: 'sign_in_with' }
   );
+  google.accounts.id.prompt(); // triggers silent auto-login check
 });
 
 window.handleCredentialResponse = function (response) {
