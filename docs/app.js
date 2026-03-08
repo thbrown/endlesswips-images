@@ -60,7 +60,11 @@ async function loadImages() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const images = await res.json();
 
-    document.getElementById('image-count').textContent = `(${images.length})`;
+    const totalSize = images.reduce((sum, img) => sum + img.size, 0);
+    const statsBar = document.getElementById('stats-bar');
+    document.getElementById('stat-count').textContent = `${images.length} image${images.length !== 1 ? 's' : ''}`;
+    document.getElementById('stat-size').textContent = formatSize(totalSize) + ' total';
+    statsBar.classList.remove('hidden');
 
     if (images.length === 0) {
       grid.innerHTML = '<p class="loading-msg">No images yet. Upload something!</p>';

@@ -178,8 +178,19 @@ main {
   font-size: 0.75rem;
 }
 
-#image-count {
+#stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.stat-divider {
+  opacity: 0.4;
 }
 
 #image-grid {

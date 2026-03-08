@@ -28,9 +28,10 @@ echo ""
 echo ">>> Deploying: serve"
 gcloud functions deploy serve \
   --gen2 \
-  --runtime=nodejs20 \
+  --runtime=nodejs22 \
   --trigger-http \
   --allow-unauthenticated \
+  --memory=512MB \
   --project="$PROJECT_ID" \
   --region="$REGION" \
   --source=functions/serve \
@@ -42,7 +43,7 @@ echo ""
 echo ">>> Deploying: list"
 gcloud functions deploy list \
   --gen2 \
-  --runtime=nodejs20 \
+  --runtime=nodejs22 \
   --trigger-http \
   --allow-unauthenticated \
   --project="$PROJECT_ID" \
@@ -56,9 +57,10 @@ echo ""
 echo ">>> Deploying: upload"
 gcloud functions deploy upload \
   --gen2 \
-  --runtime=nodejs20 \
+  --runtime=nodejs22 \
   --trigger-http \
   --allow-unauthenticated \
+  --memory=512MB \
   --project="$PROJECT_ID" \
   --region="$REGION" \
   --source=functions/upload \
@@ -70,7 +72,7 @@ echo ""
 echo ">>> Deploying: delete"
 gcloud functions deploy delete \
   --gen2 \
-  --runtime=nodejs20 \
+  --runtime=nodejs22 \
   --trigger-http \
   --allow-unauthenticated \
   --project="$PROJECT_ID" \
