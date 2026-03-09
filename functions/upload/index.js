@@ -19,7 +19,8 @@ async function verifyToken(authHeader) {
   const client = new OAuth2Client(process.env.OAUTH_CLIENT_ID);
   const ticket = await client.verifyIdToken({ idToken: token, audience: process.env.OAUTH_CLIENT_ID });
   const payload = ticket.getPayload();
-  if (payload.email !== process.env.ALLOWED_EMAIL) throw new Error('Forbidden');
+  const allowed = process.env.ALLOWED_EMAILS.split(',').map(e => e.trim());
+  if (!allowed.includes(payload.email)) throw new Error('Forbidden');
   return payload;
 }
 
@@ -60,7 +61,7 @@ functions.http('upload', async (req, res) => {
         fileStream.on('end', async () => {
           try {
             const buffer = Buffer.concat(chunks);
-            const webpBuffer = await sharp(buffer).webp({ quality: 85 }).toBuffer();
+            const webpBuffer = await sharp(buffer, { animated: true }).webp({ quality: 85 }).toBuffer();
 
             const baseName = path.basename(filename, path.extname(filename))
               .normalize('NFD')           // decompose accents/special chars

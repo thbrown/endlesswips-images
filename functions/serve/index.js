@@ -34,7 +34,7 @@ functions.http('serve', async (req, res) => {
 
     const [buffer] = await file.download();
 
-    let pipeline = sharp(buffer);
+    let pipeline = sharp(buffer, { animated: true });
 
     if (width && height) {
       pipeline = pipeline.resize(width, height, { fit: 'fill' });
@@ -44,7 +44,7 @@ functions.http('serve', async (req, res) => {
       pipeline = pipeline.resize(null, height);
     }
 
-    const output = await pipeline.webp().toBuffer();
+    const output = await pipeline.webp({ animated: true }).toBuffer();
 
     res.set('Content-Type', 'image/webp');
     res.set('Cache-Control', 'public, max-age=86400');
