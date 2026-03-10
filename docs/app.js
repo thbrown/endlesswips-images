@@ -90,7 +90,7 @@ function buildCard(img) {
   card.className = 'image-card';
   card.dataset.name = img.name;
 
-  const thumbUrl = `${CONFIG.SERVE_URL}/${encodeURIComponent(img.name)}?width=200`;
+  const thumbUrl = `${CONFIG.SERVE_URL}/${encodeURIComponent(img.name)}?width=200&static=true`;
   const fullUrl  = `${CONFIG.SERVE_URL}/${encodeURIComponent(img.name)}`;
 
   card.innerHTML = `

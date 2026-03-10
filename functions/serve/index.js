@@ -24,6 +24,7 @@ functions.http('serve', async (req, res) => {
 
   const width = req.query.width ? parseInt(req.query.width, 10) : null;
   const height = req.query.height ? parseInt(req.query.height, 10) : null;
+  const isStatic = req.query.static === 'true';
 
   try {
     const file = bucket.file(imageName);
@@ -34,7 +35,7 @@ functions.http('serve', async (req, res) => {
 
     const [buffer] = await file.download();
 
-    let pipeline = sharp(buffer, { animated: true });
+    let pipeline = sharp(buffer, { animated: !isStatic });
 
     if (width && height) {
       pipeline = pipeline.resize(width, height, { fit: 'fill' });
@@ -44,7 +45,7 @@ functions.http('serve', async (req, res) => {
       pipeline = pipeline.resize(null, height);
     }
 
-    const output = await pipeline.webp({ animated: true }).toBuffer();
+    const output = await pipeline.webp({ animated: !isStatic }).toBuffer();
 
     res.set('Content-Type', 'image/webp');
     res.set('Cache-Control', 'public, max-age=86400');

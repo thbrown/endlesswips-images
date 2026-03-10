@@ -31,7 +31,7 @@ gcloud functions deploy images-serve \
   --runtime=nodejs22 \
   --trigger-http \
   --allow-unauthenticated \
-  --memory=1024MB \
+  --memory=2048MB \
   --project="$PROJECT_ID" \
   --region="$REGION" \
   --source=functions/serve \
@@ -60,7 +60,7 @@ gcloud functions deploy images-upload \
   --runtime=nodejs22 \
   --trigger-http \
   --allow-unauthenticated \
-  --memory=512MB \
+  --memory=1024MB \
   --project="$PROJECT_ID" \
   --region="$REGION" \
   --source=functions/upload \
